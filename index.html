@@ -1,153 +1,242 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  
-  <title>影视清单,电影,剧集,追剧,片单-i-tzc 的影视清单</title>
+    <meta charset="utf-8" />
+    <script>
+    (function(){var t,dt;try{t=localStorage.getItem("theme");dt="dark"}catch(e){dt="dark"}if(t!=="light"&&t!=="dark")t=dt;document.documentElement.setAttribute("data-theme",t);})();
+    </script>
+    <title>i-tzc 的影视清单</title>
+    <meta name="author" content="i-tzc" />
+    <meta name="description" content="个人影视剧标记清单 - 想看 / 在看 / 看过" />
+    <meta name="keywords" content="影视清单,电影,剧集,追剧,片单" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.svg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap"
+/>
+<script> const mixins = {}; </script>
 
-  <!-- keywords -->
-  
-    <meta name="keywords" content="影视清单,电影,剧集,追剧,片单">
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="个人影视剧标记清单 - 想看 &#x2F; 在看 &#x2F; 看过">
-<meta property="og:type" content="website">
-<meta property="og:title" content="i-tzc 的影视清单">
-<meta property="og:url" content="https://i-tzc.github.io/index.html">
-<meta property="og:site_name" content="i-tzc 的影视清单">
-<meta property="og:description" content="个人影视剧标记清单 - 想看 &#x2F; 在看 &#x2F; 看过">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="i-tzc">
-<meta property="article:tag" content="影视清单,电影,剧集,追剧,片单">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternative" href="/atom.xml" title="i-tzc 的影视清单" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/img/favicon.ico">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-  
-
-  
-<script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
-
-  
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
 
 
-  
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <link
+        id="hljs-theme-dark"
+        rel="stylesheet"
+        href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark-reasonable.min.css"
+    />
+    <link
+        id="hljs-theme-light"
+        rel="stylesheet"
+        href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css"
+        disabled
+    />
+    <script>
+    (function () {
+        var t = document.documentElement.getAttribute("data-theme") || "dark";
+        var dark = document.getElementById("hljs-theme-dark");
+        var light = document.getElementById("hljs-theme-light");
+        if (dark && light) {
+            dark.disabled = t === "light";
+            light.disabled = t !== "light";
+        }
+    })();
+    window.__PARTICLEX_HIGHLIGHT__ = {
+        wrap: true,
+        collapseEnable: true,
+        collapseLines: 20
+    };
+    </script>
+    <script src="/js/lib/highlight.js"></script>
+
+
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+<script src="/js/lib/home.js"></script>
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<style>
+:root {
+  --bg-page: #19181b;
+  --bg-surface: #232225;
+  --bg-surface-elevated: #2a292e;
+  --bg-code: #1b1b1d;
+  --bg-inline-code: #252428;
+  --text-primary: #c7c6cd;
+  --text-secondary: #898891;
+  --text-heading: #d5d4d8;
+  --accent: #7c5cff;
+  --accent-hover: #a38dff;
+  --accent-muted: #5c49ab;
+  --border: #3c3b40;
+  --shadow: rgba(0, 0, 0, 0.25);
+  --danger: #e06c75;
+  --success: #6bbf8a;
+  --shadow-card: 0 4px 24px var(--shadow);
+  --menu-bg: rgba(35, 34, 37, 0.92);
+  --menu-bg-scrolled: rgba(25, 24, 27, 0.55);
+  --overlay-bg: rgba(25, 24, 27, 0.85);
+  --home-info-bg: rgba(25, 24, 27, 0.72);
+  --on-accent: #ffffff;
+  --accent-rgb: 124, 92, 255;
+  --accent-muted-rgb: 92, 73, 171;
+  --danger-rgb: 224, 108, 117;
+  --success-rgb: 107, 191, 138;
+  --shadow-rgb: 0, 0, 0;
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --loop-bg-1: #5742a9;
+  --loop-bg-2: #7c5ff2;
+  --loop-bg-3: #4a3a8d;
+  --loop-bg-4: #766ee3;
+}
+
+[data-theme="light"] {
+  --bg-page: #efeff1;
+  --bg-surface: #fcfcfd;
+  --bg-surface-elevated: #e7e7e9;
+  --bg-code: #e5e4e7;
+  --bg-inline-code: #dfdfe2;
+  --text-primary: #2c2a32;
+  --text-secondary: #5b5964;
+  --text-heading: #201e24;
+  --accent: #5c3fd4;
+  --accent-hover: #4a32aa;
+  --accent-muted: #aea2db;
+  --border: #cdccd1;
+  --shadow: rgba(40, 36, 28, 0.12);
+  --danger: #c94c57;
+  --success: #3d8f5c;
+  --shadow-card: 0 4px 24px var(--shadow);
+  --menu-bg: rgba(252, 252, 253, 0.92);
+  --menu-bg-scrolled: rgba(239, 239, 241, 0.7);
+  --overlay-bg: rgba(239, 239, 241, 0.88);
+  --home-info-bg: rgba(239, 239, 241, 0.82);
+  --on-accent: #ffffff;
+  --accent-rgb: 92, 63, 212;
+  --accent-muted-rgb: 174, 162, 219;
+  --danger-rgb: 201, 76, 87;
+  --success-rgb: 61, 143, 92;
+  --shadow-rgb: 40, 36, 28;
+  --shadow-card-hover: 0 8px 20px rgba(0, 0, 0, 0.35);
+  --loop-bg-1: #4e3a9f;
+  --loop-bg-2: #8572d1;
+  --loop-bg-3: #8069c2;
+  --loop-bg-4: #615bc7;
+}
+</style>
+
+
 <meta name="generator" content="Hexo 7.3.0"></head>
 <body>
-  <div id="container">
-    <div id="particles-js"></div>
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-				<img lazy-src="" class="js-avatar">
-			
-		</a>
-
-		<hgroup>
-			<h1 class="header-author"><a href="/">i-tzc</a></h1>
-		</hgroup>
-
-		
-			<p class="header-subtitle"></p>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/">影视清单</a></li>
-				        
-							<li><a href="/archives">文章归档</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="half-header-menu">
-						<a class="hide">Home</a>
-						<a>Tags</a>
-						<a>Links</a>
-						<a>About</a>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-						</div>
-						<!-- music -->
-						
-					</nav>
-				</section>
-				
-				
-				
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://i-tzc.github.io/">github</a>
-			        
-			        </div>
-				</section>
-				
-
-				
-				
-				<section class="switch-part switch-part4">
-				
-					<div id="js-aboutme">影迷 · 用清单记录追过的每一部作品</div>
-				</section>
-				
-			</div>
-		</div>
-	</header>				
+    <canvas id="starCanvas"></canvas>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>页面加载中...</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>I-TZC 的影视清单</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;影视清单</span>
+        </a>
+        
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;I-TZC 的影视清单</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">影视清单</div>
+                    </div>
+                </a>
+                
+                
+            </div>
+        </transition>
+    </nav>
+    
+    <button id="theme-toggle" type="button" aria-label="Switch theme">
+        <i class="fa-solid fa-sun theme-icon-sun" aria-hidden="true"></i>
+        <i class="fa-solid fa-moon theme-icon-moon" aria-hidden="true"></i>
+    </button>
+    
 </div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div id="home-head">
+    <div
+        id="home-background"
+        ref="homeBackground"
+        data-images="/images/background.svg"
+    ></div>
+    <div id="home-info" @click="homeClick">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>i-tzc 的影视清单</h1>
+                <h3>记录每一部看过的电影与剧集</h3>
+                <h5>个人影视剧标记清单 - 想看 / 在看 / 看过</h5>
+            </div>
+        </span>
     </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide"></h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				<img lazy-src="" class="js-avatar">
-			</div>
-			<hgroup>
-			  <h1 class="header-author"></h1>
-			</hgroup>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/">影视清单</a></li>
-		        
-					<li><a href="/archives">文章归档</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-				</div>
-			</nav>
-		</header>				
-	</div>
-</nav>
-      <div class="body-wrap"><div class="marklist-app" id="marklistApp">
+</div>
+<div id="home-posts-wrap" class="home-posts-wrap-no-card">
+    <div id="home-posts">
+        <!--
+  影视清单组件（主题无关版 · ddys 海报网格风格）
+  ---------------------------------------------------------------
+  - 纯静态 HTML + CSS + 原生 JS（IIFE + 事件委托），数据由 scripts/generate-marks-json.js
+    在 hexo generate 时从 source/_data/marks.yml 生成 /marks.json，运行时 fetch 加载；
+  - 布局参考 ddys.app：一行四列海报卡片，影视名称叠在图片左下角；
+  - 功能：海报网格 / 标签词云 / 手动添加(含海报 URL 或 base64 上传) / TMDB 搜索添加 /
+          数据导出(YAML) / 数据导入(YAML/JSON)。
+  ---------------------------------------------------------------
+-->
+<div class="marklist-app" id="marklistApp">
   <div class="ml-hero">
     <div class="ml-hero-inner">
       <h1 class="ml-title">影视清单 <span class="ml-title-en">MOVIE &amp; TV MARK LIST</span></h1>
@@ -157,6 +246,16 @@
   </div>
 
   <div class="ml-panel">
+    <!-- 标签词云 -->
+    <div class="ml-cloud-wrap" id="mlCloudWrap" style="display:none;">
+      <div class="ml-cloud-head">
+        <span class="ml-cloud-title">标签云</span>
+        <span class="ml-cloud-count" id="mlCloudCount"></span>
+      </div>
+      <div class="ml-cloud" id="mlCloud"></div>
+    </div>
+
+    <!-- 筛选栏 -->
     <div class="ml-toolbar">
       <div class="ml-tabs" id="mlTabs">
         <button class="ml-tab active" data-status="all">全部</button>
@@ -173,34 +272,114 @@
       </div>
       <div class="ml-controls">
         <input id="mlSearch" class="ml-search" type="text" placeholder="搜索片名 / 标签 / 备注…">
+        <div class="ml-result" id="mlResult"></div>
         <select id="mlSort" class="ml-sort">
           <option value="default">默认排序</option>
           <option value="rating">评分从高到低</option>
           <option value="year">年份从新到旧</option>
           <option value="title">按名称排序</option>
         </select>
-        <button id="mlReset" class="ml-reset" title="清除本地标记与评分，恢复默认数据">重置</button>
+        <button id="mlReset" class="ml-mini" title="清除本地标记与评分，恢复默认数据">重置</button>
+        <button id="mlExport" class="ml-mini" title="导出全部数据为 YAML">导出</button>
+        <button id="mlImport" class="ml-mini" title="粘贴 YAML/JSON 合并到本地">导入</button>
+        <button id="mlAddBtn" class="ml-add-btn">＋ 添加</button>
       </div>
-    </div>
-
-    <div class="ml-add">
-      <input id="mlAddTitle" class="ml-add-title" type="text" placeholder="输入片名，快速加入清单…">
-      <select id="mlAddType" class="ml-add-type">
-        <option value="movie">电影</option>
-        <option value="tv">剧集</option>
-        <option value="anime">动漫</option>
-        <option value="variety">综艺</option>
-      </select>
-      <select id="mlAddStatus" class="ml-add-status">
-        <option value="want">想看</option>
-        <option value="watching">在看</option>
-        <option value="watched">看过</option>
-      </select>
-      <button id="mlAddBtn" class="ml-add-btn">＋ 添加</button>
     </div>
 
     <div class="ml-grid" id="mlGrid"></div>
     <div class="ml-empty" id="mlEmpty" style="display:none;">没有符合条件的作品，换个筛选试试～</div>
+  </div>
+
+  <!-- 添加面板 -->
+  <div class="ml-modal" id="mlModal">
+    <div class="ml-modal-mask" data-close></div>
+    <div class="ml-modal-box">
+      <div class="ml-modal-head">
+        <div class="ml-modal-tabs">
+          <button class="ml-mtab active" data-mtab="manual">手动添加</button>
+          <button class="ml-mtab" data-mtab="search">搜索添加</button>
+        </div>
+        <button class="ml-modal-close" data-close title="关闭">✕</button>
+      </div>
+      <div class="ml-modal-body">
+        <!-- 手动添加 -->
+        <div class="ml-pane" id="mlPaneManual">
+          <label>名称 <span class="ml-req">*</span></label>
+          <input id="mlFTitle" class="ml-field" type="text" placeholder="必填，影视名称">
+          <div class="ml-field-row">
+            <div>
+              <label>年份</label>
+              <input id="mlFYear" class="ml-field" type="number" placeholder="如 2024">
+            </div>
+            <div>
+              <label>类型</label>
+              <select id="mlFType" class="ml-field">
+                <option value="movie">电影</option>
+                <option value="tv">剧集</option>
+                <option value="anime">动漫</option>
+                <option value="variety">综艺</option>
+              </select>
+            </div>
+            <div>
+              <label>状态</label>
+              <select id="mlFStatus" class="ml-field">
+                <option value="want">想看</option>
+                <option value="watching">在看</option>
+                <option value="watched">看过</option>
+              </select>
+            </div>
+          </div>
+          <label>标签（回车或逗号分隔）</label>
+          <div class="ml-tag-input" id="mlTagInput">
+            <div class="ml-tag-chips" id="mlTagChips"></div>
+            <input id="mlFNewTag" type="text" placeholder="输入标签后回车">
+          </div>
+          <label>海报图片</label>
+          <div class="ml-poster-box">
+            <input id="mlFPosterUrl" class="ml-field" type="text" placeholder="图片 URL（推荐）">
+            <button id="mlPosterUpload" class="ml-mini" type="button">本地上传</button>
+            <input id="mlPosterFile" type="file" accept="image/*" style="display:none;">
+            <button id="mlPosterClear" class="ml-mini" type="button">清除</button>
+          </div>
+          <div class="ml-poster-preview" id="mlPosterPreview"></div>
+          <div class="ml-poster-hint" id="mlPosterHint"></div>
+          <label>备注</label>
+          <textarea id="mlFNote" class="ml-field" rows="2" placeholder="可选，一句话短评 / 导演等"></textarea>
+        </div>
+        <!-- 搜索添加（TMDB） -->
+        <div class="ml-pane" id="mlPaneSearch" style="display:none;">
+          <div class="ml-tmdb-search">
+            <input id="mlTmdbQuery" class="ml-field" type="text" placeholder="输入片名，回车搜索（如：星际穿越）">
+            <button id="mlTmdbBtn" class="ml-add-btn" type="button">搜索</button>
+          </div>
+          <div class="ml-tmdb-status" id="mlTmdbStatus"></div>
+          <div class="ml-tmdb-results" id="mlTmdbResults"></div>
+        </div>
+      </div>
+      <div class="ml-modal-foot">
+        <button id="mlCancel" class="ml-mini" type="button">取消</button>
+        <button id="mlConfirm" class="ml-add-btn" type="button">确认添加</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 导入 / 导出面板 -->
+  <div class="ml-modal" id="mlIOModal">
+    <div class="ml-modal-mask" data-close></div>
+    <div class="ml-modal-box">
+      <div class="ml-modal-head">
+        <span class="ml-io-title" id="mlIOTitle">导出数据</span>
+        <button class="ml-modal-close" data-close title="关闭">✕</button>
+      </div>
+      <div class="ml-modal-body">
+        <div class="ml-io-hint" id="mlIOHint"></div>
+        <textarea id="mlIOText" class="ml-io-text" spellcheck="false"></textarea>
+      </div>
+      <div class="ml-modal-foot">
+        <button class="ml-mini" data-close type="button">关闭</button>
+        <button id="mlIOAction" class="ml-add-btn" type="button">复制</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -209,7 +388,6 @@
   --ml-bg: #0e1420;
   --ml-bg2: #151d2e;
   --ml-card: #1b2436;
-  --ml-card-hover: #232f47;
   --ml-border: rgba(255,255,255,.08);
   --ml-text: #e8edf6;
   --ml-muted: #8b96ad;
@@ -254,7 +432,7 @@
 .ml-tab:hover, .ml-chip:hover { color: var(--ml-text); border-color: rgba(255,255,255,.25); }
 .ml-tab.active { background: linear-gradient(90deg, var(--ml-accent), var(--ml-accent2)); color: #fff; border-color: transparent; }
 .ml-chip.active { background: rgba(124,92,255,.18); color: #c9b8ff; border-color: rgba(124,92,255,.5); }
-.ml-controls { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+.ml-controls { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .ml-search, .ml-sort {
   background: rgba(255,255,255,.07); border: 1px solid var(--ml-border); color: var(--ml-text);
   border-radius: 8px; padding: 7px 12px; font-size: 13px; outline: none; }
@@ -262,73 +440,161 @@
 .ml-search::placeholder { color: var(--ml-muted); }
 .ml-search:focus, .ml-sort:focus { border-color: var(--ml-accent); }
 .ml-sort option { background: var(--ml-bg2); color: var(--ml-text); }
-.ml-reset {
-  background: transparent; border: 1px solid rgba(255,92,138,.45); color: #ff9db4;
-  border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 13px; transition: all .18s ease; }
-.ml-reset:hover { background: rgba(255,92,138,.15); }
-
-/* Add row */
-.ml-add { display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap; }
-.ml-add-title { flex: 1; min-width: 200px; }
-.ml-add-title, .ml-add-type, .ml-add-status {
-  background: rgba(255,255,255,.07); border: 1px solid var(--ml-border); color: var(--ml-text);
-  border-radius: 8px; padding: 7px 12px; font-size: 13px; outline: none; }
-.ml-add-title:focus { border-color: var(--ml-accent); }
-.ml-add-type option, .ml-add-status option { background: var(--ml-bg2); color: var(--ml-text); }
+.ml-result { font-size: 12px; color: var(--ml-muted); white-space: nowrap; }
+.ml-hl { background: rgba(255,207,77,.42); color: #fff; border-radius: 2px; padding: 0 1px; }
+.ml-mini {
+  background: rgba(255,255,255,.05); border: 1px solid var(--ml-border); color: var(--ml-muted);
+  border-radius: 8px; padding: 7px 12px; cursor: pointer; font-size: 13px; transition: all .18s ease; }
+.ml-mini:hover { color: var(--ml-text); border-color: rgba(255,255,255,.3); }
 .ml-add-btn {
   background: linear-gradient(90deg, var(--ml-accent), var(--ml-accent2)); color: #fff; border: none;
   border-radius: 8px; padding: 7px 18px; cursor: pointer; font-size: 13px; font-weight: 600; transition: transform .12s ease; }
 .ml-add-btn:hover { transform: translateY(-1px); }
 
-/* Grid & cards */
-.ml-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(158px, 1fr)); gap: 14px; }
+/* 标签词云 */
+.ml-cloud-wrap { margin-bottom: 16px; padding: 14px 16px; background: rgba(255,255,255,.04); border: 1px solid var(--ml-border); border-radius: 12px; }
+.ml-cloud-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.ml-cloud-title { font-size: 14px; font-weight: 600; }
+.ml-cloud-count { font-size: 12px; color: var(--ml-muted); }
+.ml-cloud { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.ml-cloud-tag { cursor: pointer; line-height: 1.4; transition: filter .15s ease; }
+.ml-cloud-tag:hover { text-decoration: underline; filter: brightness(1.25); }
+.ml-cloud-tag.on { text-decoration: underline; text-shadow: 0 0 14px currentColor; }
+
+/* 海报网格（ddys 风格） */
+.ml-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .ml-card {
-  background: var(--ml-card); border: 1px solid var(--ml-border); border-radius: 12px; overflow: hidden;
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; position: relative; }
-.ml-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,.45); border-color: rgba(124,92,255,.5); }
-.ml-poster { position: relative; aspect-ratio: 2/3; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.ml-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  position: relative; border-radius: 12px; overflow: hidden; background: var(--ml-card);
+  cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+.ml-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,.5); z-index: 2; }
+.ml-poster { position: relative; aspect-ratio: 2/3; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--ml-bg2); }
+.ml-poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
+.ml-card:hover .ml-poster img { transform: scale(1.06); }
 .ml-poster-grad { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-.ml-poster-char { font-size: 44px; font-weight: 800; color: rgba(255,255,255,.92); text-shadow: 0 3px 12px rgba(0,0,0,.4); }
-.ml-badge {
-  position: absolute; top: 8px; right: 8px; font-size: 11px; padding: 3px 9px; border-radius: 999px;
+.ml-poster-char { font-size: 58px; font-weight: 800; color: rgba(255,255,255,.92); text-shadow: 0 3px 14px rgba(0,0,0,.45); }
+.ml-shade { position: absolute; left: 0; right: 0; bottom: 0; height: 58%;
+  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.32) 48%, rgba(0,0,0,0) 100%); pointer-events: none; }
+.ml-badge { position: absolute; top: 8px; right: 8px; font-size: 11px; padding: 3px 9px; border-radius: 999px;
   color: #fff; font-weight: 600; letter-spacing: 1px; box-shadow: 0 2px 8px rgba(0,0,0,.35); }
 .ml-badge.want { background: var(--ml-want); }
 .ml-badge.watching { background: var(--ml-watching); }
 .ml-badge.watched { background: var(--ml-watched); }
-.ml-card-body { padding: 10px 12px 12px; }
-.ml-name { font-size: 14px; font-weight: 600; line-height: 1.35; margin: 0 0 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 38px; }
-.ml-meta { font-size: 12px; color: var(--ml-muted); margin-bottom: 6px; }
-.ml-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; min-height: 18px; }
-.ml-tag { font-size: 11px; color: #a9b4cd; background: rgba(255,255,255,.07); border: 1px solid var(--ml-border); padding: 1px 7px; border-radius: 999px; }
-.ml-note { font-size: 12px; color: var(--ml-muted); font-style: italic; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
-.ml-actions { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.ml-info { position: absolute; left: 0; right: 0; bottom: 46px; padding: 0 12px; pointer-events: none; }
+.ml-name { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.3; color: #fff;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  text-shadow: 0 1px 4px rgba(0,0,0,.6); }
+.ml-meta { margin-top: 3px; font-size: 12px; color: rgba(255,255,255,.78); text-shadow: 0 1px 3px rgba(0,0,0,.6); }
+.ml-note { position: absolute; top: 8px; left: 12px; right: 12px; font-size: 12px; color: #fff; line-height: 1.35;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  text-shadow: 0 1px 3px rgba(0,0,0,.6); opacity: 0; transform: translateY(-4px); transition: all .18s ease; pointer-events: none; }
+.ml-actions { position: absolute; left: 0; right: 0; bottom: 10px; padding: 0 12px;
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  opacity: 0; transform: translateY(6px); transition: all .18s ease; pointer-events: none; }
+.ml-card:hover .ml-note, .ml-card:focus-within .ml-note,
+.ml-card:hover .ml-actions, .ml-card:focus-within .ml-actions { opacity: 1; transform: none; pointer-events: auto; }
 .ml-stars { display: flex; gap: 2px; cursor: pointer; user-select: none; }
-.ml-star { font-size: 15px; color: rgba(255,255,255,.18); transition: color .12s ease, transform .12s ease; }
+.ml-star { font-size: 16px; color: rgba(255,255,255,.4); transition: color .12s ease, transform .12s ease; }
 .ml-star.on { color: #ffcf4d; }
-.ml-star:hover { transform: scale(1.2); }
-.ml-toggle {
-  font-size: 12px; border: 1px solid var(--ml-border); background: rgba(255,255,255,.06); color: var(--ml-muted);
-  border-radius: 7px; padding: 4px 9px; cursor: pointer; transition: all .15s ease; white-space: nowrap; }
-.ml-toggle:hover { color: var(--ml-text); border-color: rgba(255,255,255,.3); }
-.ml-remove { font-size: 12px; border: none; background: transparent; color: #ff9db4; cursor: pointer; padding: 4px 6px; opacity: .8; }
-.ml-remove:hover { opacity: 1; text-decoration: underline; }
-.ml-empty { text-align: center; color: var(--ml-muted); padding: 40px 0; font-size: 14px; }
+.ml-star:hover { transform: scale(1.25); }
+.ml-ctl { display: flex; gap: 6px; align-items: center; }
+.ml-toggle, .ml-remove { border: none; border-radius: 7px; padding: 5px 10px; font-size: 12px; cursor: pointer; white-space: nowrap; }
+.ml-toggle { background: rgba(255,255,255,.2); color: #fff; }
+.ml-toggle:hover { background: rgba(255,255,255,.34); }
+.ml-remove { background: rgba(255,92,138,.24); color: #ffb7c6; }
+.ml-empty { grid-column: 1 / -1; text-align: center; color: var(--ml-muted); padding: 40px 0; font-size: 14px; }
+
+/* 弹窗 */
+.ml-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
+.ml-modal.open { display: flex; }
+.ml-modal-mask { position: absolute; inset: 0; background: rgba(4,6,14,.72); }
+.ml-modal-box { position: relative; width: 100%; max-width: 560px; max-height: 88vh; overflow: auto;
+  background: linear-gradient(160deg, var(--ml-bg2), var(--ml-bg)); border: 1px solid var(--ml-border);
+  border-radius: 14px; box-shadow: 0 24px 60px rgba(0,0,0,.6); }
+.ml-modal-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 0; }
+.ml-modal-tabs { display: flex; gap: 6px; }
+.ml-mtab { border: 1px solid var(--ml-border); background: transparent; color: var(--ml-muted); padding: 6px 14px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: all .18s ease; }
+.ml-mtab.active { background: linear-gradient(90deg, var(--ml-accent), var(--ml-accent2)); color: #fff; border-color: transparent; }
+.ml-modal-close { background: none; border: none; color: var(--ml-muted); font-size: 18px; cursor: pointer; padding: 4px 8px; }
+.ml-modal-close:hover { color: var(--ml-text); }
+.ml-modal-body { padding: 14px 16px; }
+.ml-modal-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 0 16px 16px; }
+.ml-io-title { font-size: 14px; font-weight: 600; }
+.ml-pane label { display: block; font-size: 12px; color: var(--ml-muted); margin: 12px 0 6px; }
+.ml-req { color: var(--ml-accent2); }
+.ml-field { width: 100%; background: rgba(255,255,255,.07); border: 1px solid var(--ml-border); color: var(--ml-text);
+  border-radius: 8px; padding: 9px 12px; font-size: 13px; outline: none; }
+.ml-field:focus { border-color: var(--ml-accent); }
+textarea.ml-field { resize: vertical; }
+.ml-field-row { display: flex; gap: 10px; }
+.ml-field-row > div { flex: 1; }
+.ml-tag-input { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(255,255,255,.07);
+  border: 1px solid var(--ml-border); border-radius: 8px; padding: 8px 10px; cursor: text; }
+.ml-tag-chip { display: inline-flex; align-items: center; gap: 5px; background: rgba(124,92,255,.2); color: #d5c8ff;
+  border-radius: 999px; padding: 3px 10px; font-size: 12px; }
+.ml-tag-chip i { font-style: normal; cursor: pointer; opacity: .7; }
+.ml-tag-chip i:hover { opacity: 1; }
+.ml-tag-input input { flex: 1; min-width: 100px; background: none; border: none; color: var(--ml-text); outline: none; font-size: 13px; padding: 2px 4px; }
+.ml-poster-box { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.ml-poster-box .ml-field { flex: 1; min-width: 160px; }
+.ml-poster-preview { width: 72px; height: 108px; border-radius: 8px; overflow: hidden; background: var(--ml-bg2);
+  border: 1px solid var(--ml-border); margin-top: 10px; }
+.ml-poster-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ml-poster-preview .ph { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--ml-muted); font-size: 22px; }
+.ml-poster-hint { width: 100%; font-size: 11px; color: #ffb37c; margin-top: 6px; line-height: 1.5; }
+
+/* TMDB 搜索结果 */
+.ml-tmdb-search { display: flex; gap: 8px; }
+.ml-tmdb-search .ml-field { flex: 1; }
+.ml-tmdb-status { font-size: 12px; color: var(--ml-muted); margin: 12px 0; min-height: 16px; line-height: 1.5; }
+.ml-tmdb-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+.ml-tmdb-item { cursor: pointer; border-radius: 8px; overflow: hidden; border: 1px solid var(--ml-border); background: var(--ml-card); transition: transform .15s ease, border-color .15s ease; }
+.ml-tmdb-item:hover { border-color: var(--ml-accent); transform: translateY(-2px); }
+.ml-tmdb-item img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
+.ml-tmdb-noimg { width: 100%; aspect-ratio: 2/3; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; color: rgba(255,255,255,.85); background: linear-gradient(150deg, #7c5cff, #ff5c8a); }
+.ml-tmdb-meta { padding: 6px 8px 8px; }
+.ml-tmdb-name { display: block; font-size: 12px; line-height: 1.3; color: var(--ml-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ml-tmdb-sub { font-size: 11px; color: var(--ml-muted); }
+
+/* IO 面板 */
+.ml-io-hint { font-size: 12px; color: var(--ml-muted); margin-bottom: 10px; line-height: 1.6; }
+.ml-io-text { width: 100%; min-height: 260px; background: rgba(255,255,255,.05); border: 1px solid var(--ml-border);
+  color: var(--ml-text); border-radius: 8px; padding: 10px; font-size: 12px; font-family: ui-monospace, Consolas, monospace;
+  outline: none; resize: vertical; }
+
+/* 触屏设备无 hover，操作条常显 */
+@media (hover: none) {
+  .ml-actions { opacity: 1; transform: none; pointer-events: auto; }
+  .ml-note { opacity: 1; transform: none; }
+}
+
+/* 响应式 */
+@media (max-width: 1100px) { .ml-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px)  { .ml-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } .ml-poster-char { font-size: 46px; } }
 @media (max-width: 600px) {
   .ml-controls { margin-left: 0; width: 100%; }
   .ml-search { flex: 1; width: auto; }
   .ml-title { font-size: 24px; }
+  .ml-field-row { flex-direction: column; }
+  .ml-tmdb-search { flex-direction: column; }
 }
 </style>
 
 <script>
 (function () {
   'use strict';
-  // 默认数据由 Hexo 数据文件注入
-  var DEFAULT_MARKS = [{"title":"流浪地球2","year":2023,"type":"movie","status":"watched","rating":5,"tags":["科幻","灾难"],"note":"中国科幻电影的里程碑"},{"title":"星际穿越","year":2014,"type":"movie","status":"watched","rating":5,"tags":["科幻","冒险"],"note":"时间、爱与引力"},{"title":"奥本海默","year":2023,"type":"movie","status":"watched","rating":4,"tags":["传记","历史"]},{"title":"让子弹飞","year":2010,"type":"movie","status":"watched","rating":5,"tags":["喜剧","剧情"]},{"title":"蜘蛛侠：纵横宇宙","year":2023,"type":"movie","status":"watched","rating":4,"tags":["动画","超级英雄"]},{"title":"长安三万里","year":2023,"type":"movie","status":"watched","rating":4,"tags":["动画","历史"]},{"title":"沙丘2","year":2024,"type":"movie","status":"want","rating":0,"tags":["科幻"]},{"title":"铃芽之旅","year":2022,"type":"movie","status":"want","rating":0,"tags":["动画","奇幻"]},{"title":"漫长的季节","year":2023,"type":"tv","status":"watched","rating":5,"tags":["悬疑","剧情"],"note":"国产悬疑剧天花板"},{"title":"狂飙","year":2023,"type":"tv","status":"watched","rating":4,"tags":["犯罪","剧情"]},{"title":"三体","year":2023,"type":"tv","status":"watching","rating":4,"tags":["科幻","剧情"]},{"title":"琅琊榜","year":2015,"type":"tv","status":"watched","rating":5,"tags":["古装","权谋"]},{"title":"白夜追凶","year":2017,"type":"tv","status":"watching","rating":4,"tags":["悬疑","犯罪"]},{"title":"黑镜 第六季","year":2023,"type":"tv","status":"want","rating":0,"tags":["科幻","惊悚"]},{"title":"灌篮高手","year":2022,"type":"anime","status":"watched","rating":5,"tags":["动画","运动"],"note":"青春回来了"},{"title":"鬼灭之刃 锻刀村篇","year":2023,"type":"anime","status":"watching","rating":4,"tags":["动画","热血"]},{"title":"葬送的芙莉莲","year":2023,"type":"anime","status":"want","rating":0,"tags":["动画","奇幻"]},{"title":"快乐再出发","year":2022,"type":"variety","status":"watched","rating":4,"tags":["综艺","真人秀"]},{"title":"披荆斩棘 第三季","year":2023,"type":"variety","status":"watching","rating":3,"tags":["综艺","舞台"]}];
 
-  var LS_OVERRIDES = 'ml-overrides-v1';   // { title: {status, rating} }
-  var LS_ADDED     = 'ml-added-v1';       // [item, ...]
+  // ===================== TMDB API 配置 =====================
+  // 申请 key 步骤：
+  //   1) 打开 https://www.themoviedb.org/signup 注册免费账号；
+  //   2) 登录后进入「设置(Settings) → API」，申请一个 API Key（v3）；
+  //   3) 把下面的 'YOUR_KEY_HERE' 替换成你的 key，然后重新 hexo generate 部署。
+  // 注意：纯静态站点会把 key 暴露在页面源码里，仅适合个人低频使用；不要把高权限 key 放进来。
+  //       如需更安全，可后续用 Vercel Functions 做一层代理。
+  var TMDB_API_KEY = 'YOUR_KEY_HERE';
+  var TMDB_IMG = 'https://image.tmdb.org/t/p/w500';
+
+  var LS_OVERRIDES = 'ml-overrides-v2';   // { title: {status, rating} }
+  var LS_ADDED     = 'ml-added-v2';       // [item, ...]
   var STATUS = { want: '想看', watching: '在看', watched: '看过' };
   var TYPE = { movie: '电影', tv: '剧集', anime: '动漫', variety: '综艺' };
   var NEXT_STATUS = { want: 'watching', watching: 'watched', watched: 'want' };
@@ -338,19 +604,41 @@
     ['#ff9a9e', '#fecfef'], ['#667eea', '#764ba2'], ['#f093fb', '#f5576c'],
     ['#4e54c8', '#8f94fb'], ['#fc466b', '#3f5efb'], ['#11998e', '#38ef7d']
   ];
+  var TAG_COLORS = ['#c9b8ff', '#ff9db4', '#7fd8ea', '#8ff0c4', '#ffd08a', '#ffcf4d', '#9fb6ff', '#f3a6ff', '#86e3ce', '#f5c6a5'];
+
+  var DEFAULT_MARKS = [];
 
   var app = document.getElementById('marklistApp');
-  var state = { status: 'all', type: 'all', query: '', sort: 'default' };
+  var state = { status: 'all', type: 'all', query: '', sort: 'default', tag: null };
+  var formTags = [];
+  var formPoster = '';
+  var ioMode = 'export';
+
+  // 一次性迁移旧版(v1)数据到 v2，避免用户已有的标记丢失
+  (function migrate() {
+    try {
+      if (localStorage.getItem(LS_OVERRIDES) === null) {
+        var o1 = localStorage.getItem('ml-overrides-v1');
+        if (o1 !== null) localStorage.setItem(LS_OVERRIDES, o1);
+      }
+      if (localStorage.getItem(LS_ADDED) === null) {
+        var a1 = localStorage.getItem('ml-added-v1');
+        if (a1 !== null) localStorage.setItem(LS_ADDED, a1);
+      }
+    } catch (e) {}
+  })();
 
   function loadJSON(key, fallback) {
     try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch (e) { return fallback; }
   }
-  function saveJSON(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+  function saveJSON(key, val) {
+    try { localStorage.setItem(key, JSON.stringify(val)); }
+    catch (e) { alert('存储失败：可能是 base64 海报过大，超出浏览器 localStorage 限额。建议改用图片 URL。'); }
+  }
 
   var overrides = loadJSON(LS_OVERRIDES, {});
   var added = loadJSON(LS_ADDED, []);
 
-  // 合并默认数据与本地覆盖
   function getItems() {
     return DEFAULT_MARKS.map(function (m) {
       var o = overrides[m.title] || {};
@@ -358,49 +646,99 @@
                poster: m.poster || '', status: o.status || m.status, rating: (o.rating !== undefined ? o.rating : m.rating) || 0 };
     }).concat(added.map(function (m) {
       return { title: m.title, year: m.year || '', type: m.type, tags: m.tags || [], note: m.note || '',
-               poster: '', status: m.status, rating: m.rating || 0, added: true };
+               poster: m.poster || '', status: m.status, rating: m.rating || 0, added: true };
     }));
   }
+
+  function findAdded(title) { return added.filter(function (a) { return a.title === title; })[0]; }
+
+  function setRating(title, val) {
+    var a = findAdded(title);
+    if (a) { a.rating = val; saveJSON(LS_ADDED, added); }
+    else { if (!overrides[title]) overrides[title] = {}; overrides[title].rating = val; saveJSON(LS_OVERRIDES, overrides); }
+    render();
+  }
+  function cycleStatus(title) {
+    var cur = getItems().filter(function (i) { return i.title === title; })[0];
+    if (!cur) return;
+    var next = NEXT_STATUS[cur.status] || 'want';
+    var a = findAdded(title);
+    if (a) { a.status = next; saveJSON(LS_ADDED, added); }
+    else { if (!overrides[title]) overrides[title] = {}; overrides[title].status = next; saveJSON(LS_OVERRIDES, overrides); }
+    render();
+  }
+  function removeAdded(title) { added = added.filter(function (a) { return a.title !== title; }); saveJSON(LS_ADDED, added); render(); }
 
   function hash(str) {
     var h = 0;
     for (var i = 0; i < str.length; i++) { h = (h * 31 + str.charCodeAt(i)) >>> 0; }
     return h;
   }
-
   function posterHTML(item) {
-    if (item.poster) return '<img src="' + item.poster + '" alt="" loading="lazy">';
+    if (item.poster) return '<img src="' + escapeHtml(item.poster) + '" alt="" loading="lazy">';
     var g = GRADS[hash(item.title) % GRADS.length];
     return '<div class="ml-poster-grad" style="background:linear-gradient(150deg,' + g[0] + ',' + g[1] + ')">' +
            '<span class="ml-poster-char">' + escapeHtml(item.title.charAt(0)) + '</span></div>';
   }
-
   function escapeHtml(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function highlight(text, q) {
+    if (!text) return '';
+    if (!q) return escapeHtml(text);
+    var lower = text.toLowerCase(), ql = q.toLowerCase();
+    if (lower.indexOf(ql) === -1) return escapeHtml(text);
+    var out = '', i = 0;
+    while (true) {
+      var idx = lower.indexOf(ql, i);
+      if (idx === -1) { out += escapeHtml(text.slice(i)); break; }
+      out += escapeHtml(text.slice(i, idx)) + '<mark class="ml-hl">' + escapeHtml(text.slice(idx, idx + ql.length)) + '</mark>';
+      i = idx + ql.length;
+      if (i >= text.length) break;
+    }
+    return out;
   }
 
   function renderStats() {
     var items = getItems();
-    var total = items.length;
     var byStatus = { want: 0, watching: 0, watched: 0 };
     var rated = items.filter(function (i) { return i.rating > 0; });
     var avg = rated.length ? (rated.reduce(function (s, i) { return s + i.rating; }, 0) / rated.length).toFixed(1) : '—';
     items.forEach(function (i) { if (byStatus[i.status] !== undefined) byStatus[i.status]++; });
     document.getElementById('mlStats').innerHTML =
-      '<div class="ml-stat s-total"><b>' + total + '</b><span>全部作品</span></div>' +
+      '<div class="ml-stat s-total"><b>' + items.length + '</b><span>全部作品</span></div>' +
       '<div class="ml-stat s-want"><b>' + byStatus.want + '</b><span>想看</span></div>' +
       '<div class="ml-stat s-watching"><b>' + byStatus.watching + '</b><span>在看</span></div>' +
       '<div class="ml-stat s-watched"><b>' + byStatus.watched + '</b><span>看过</span></div>' +
       '<div class="ml-stat s-rating"><b>' + avg + '</b><span>平均评分</span></div>';
   }
 
+  function renderCloud() {
+    var freq = {};
+    getItems().forEach(function (i) { (i.tags || []).forEach(function (t) { if (t) freq[t] = (freq[t] || 0) + 1; }); });
+    var tags = Object.keys(freq).sort(function (a, b) { return freq[b] - freq[a] || a.localeCompare(b, 'zh'); });
+    var wrap = document.getElementById('mlCloudWrap');
+    if (!tags.length) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+    document.getElementById('mlCloudCount').textContent = tags.length + ' 个标签';
+    var max = freq[tags[0]], min = freq[tags[tags.length - 1]];
+    document.getElementById('mlCloud').innerHTML = tags.map(function (t, idx) {
+      var size = (min === max) ? 20 : Math.round(12 + (freq[t] - min) / (max - min) * 20);
+      var on = state.tag === t ? ' on' : '';
+      return '<span class="ml-cloud-tag' + on + '" data-tag="' + escapeHtml(t) + '" style="font-size:' + size + 'px;color:' + TAG_COLORS[idx % TAG_COLORS.length] + '">' + escapeHtml(t) + '</span>';
+    }).join('');
+  }
+
   function render() {
     var items = getItems().filter(function (i) {
       if (state.status !== 'all' && i.status !== state.status) return false;
       if (state.type !== 'all' && i.type !== state.type) return false;
+      if (state.tag && (i.tags || []).indexOf(state.tag) === -1) return false;
       if (state.query) {
-        var hay = (i.title + ' ' + (i.tags || []).join(' ') + ' ' + i.note).toLowerCase();
-        if (hay.indexOf(state.query.toLowerCase()) === -1) return false;
+        var q = state.query.toLowerCase();
+        var hay = [i.title, String(i.year || ''), TYPE[i.type] || i.type, STATUS[i.status] || i.status,
+                   (i.tags || []).join(' '), i.note].join(' ').toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
       }
       return true;
     });
@@ -410,36 +748,283 @@
     else if (state.sort === 'year') sorted.sort(function (a, b) { return (b.year || 0) - (a.year || 0); });
     else if (state.sort === 'title') sorted.sort(function (a, b) { return a.title.localeCompare(b.title, 'zh'); });
 
-    var grid = document.getElementById('mlGrid');
-    grid.innerHTML = sorted.map(function (item) {
+    document.getElementById('mlGrid').innerHTML = sorted.map(function (item) {
       var stars = '';
       for (var s = 1; s <= 5; s++) {
         stars += '<span class="ml-star' + (s <= item.rating ? ' on' : '') + '" data-star="' + s + '">★</span>';
       }
-      var tags = (item.tags || []).map(function (t) { return '<span class="ml-tag">' + escapeHtml(t) + '</span>'; }).join('');
       return '' +
         '<div class="ml-card" data-title="' + escapeHtml(item.title) + '">' +
-          '<div class="ml-poster">' + posterHTML(item) +
-            '<span class="ml-badge ' + item.status + '">' + STATUS[item.status] + '</span>' +
-          '</div>' +
-          '<div class="ml-card-body">' +
-            '<h3 class="ml-name" title="' + escapeHtml(item.title) + '">' + escapeHtml(item.title) + '</h3>' +
+          '<div class="ml-poster">' + posterHTML(item) + '</div>' +
+          '<div class="ml-shade"></div>' +
+          '<span class="ml-badge ' + item.status + '">' + STATUS[item.status] + '</span>' +
+          (item.note ? '<div class="ml-note">' + highlight(item.note, state.query) + '</div>' : '') +
+          '<div class="ml-info">' +
+            '<h3 class="ml-name" title="' + escapeHtml(item.title) + '">' + highlight(item.title, state.query) + '</h3>' +
             '<div class="ml-meta">' + (item.year || '—') + ' · ' + (TYPE[item.type] || item.type) + '</div>' +
-            '<div class="ml-tags">' + tags + '</div>' +
-            (item.note ? '<div class="ml-note">' + escapeHtml(item.note) + '</div>' : '') +
-            '<div class="ml-actions">' +
-              '<span class="ml-stars" title="点击评分">' + stars + '</span>' +
+          '</div>' +
+          '<div class="ml-actions">' +
+            '<span class="ml-stars" title="点击评分">' + stars + '</span>' +
+            '<span class="ml-ctl">' +
               (item.added ? '<button class="ml-remove" title="移出清单">✕</button>' :
                '<button class="ml-toggle">' + STATUS[item.status] + ' →</button>') +
-            '</div>' +
+            '</span>' +
           '</div>' +
         '</div>';
     }).join('');
     document.getElementById('mlEmpty').style.display = sorted.length ? 'none' : 'block';
+    document.getElementById('mlResult').textContent = state.query ? '找到 ' + sorted.length + ' 个结果' : '';
     renderStats();
+    renderCloud();
   }
 
-  // 事件绑定（事件委托）
+  // ===================== 添加面板 =====================
+  function openModal() { document.getElementById('mlModal').classList.add('open'); switchModalTab('manual'); }
+  function closeModal() { document.getElementById('mlModal').classList.remove('open'); }
+  function switchModalTab(tab) {
+    document.getElementById('mlPaneManual').style.display = (tab === 'manual') ? 'block' : 'none';
+    document.getElementById('mlPaneSearch').style.display = (tab === 'search') ? 'block' : 'none';
+    Array.prototype.forEach.call(document.querySelectorAll('#mlModal .ml-mtab'), function (b) {
+      b.classList.toggle('active', b.getAttribute('data-mtab') === tab);
+    });
+  }
+  function resetForm() {
+    document.getElementById('mlFTitle').value = '';
+    document.getElementById('mlFYear').value = '';
+    document.getElementById('mlFType').value = 'movie';
+    document.getElementById('mlFStatus').value = 'want';
+    document.getElementById('mlFNote').value = '';
+    document.getElementById('mlFPosterUrl').value = '';
+    document.getElementById('mlPosterHint').textContent = '';
+    document.getElementById('mlTmdbQuery').value = '';
+    document.getElementById('mlTmdbStatus').textContent = '';
+    document.getElementById('mlTmdbResults').innerHTML = '';
+    formTags = []; formPoster = '';
+    renderTagChips(); updatePosterPreview();
+  }
+  function renderTagChips() {
+    document.getElementById('mlTagChips').innerHTML = formTags.map(function (t, i) {
+      return '<span class="ml-tag-chip">' + escapeHtml(t) + '<i class="ml-tagchip-rm" data-i="' + i + '">×</i></span>';
+    }).join('');
+  }
+  function addTag(raw) {
+    var t = String(raw || '').trim().replace(/[,，]+$/, '');
+    if (!t) { document.getElementById('mlFNewTag').value = ''; return; }
+    if (formTags.indexOf(t) === -1) formTags.push(t);
+    document.getElementById('mlFNewTag').value = '';
+    renderTagChips();
+  }
+  function removeTag(idx) { formTags.splice(idx, 1); renderTagChips(); }
+  function updatePosterPreview() {
+    var url = formPoster || document.getElementById('mlFPosterUrl').value.trim();
+    document.getElementById('mlPosterPreview').innerHTML = url
+      ? '<img src="' + escapeHtml(url) + '" alt="">' : '<div class="ph">🖼</div>';
+  }
+  function handlePosterFile(input) {
+    var f = input.files && input.files[0];
+    if (!f) return;
+    if (f.type.indexOf('image/') !== 0) { alert('请选择图片文件'); input.value = ''; return; }
+    var reader = new FileReader();
+    reader.onload = function () {
+      formPoster = reader.result;
+      document.getElementById('mlFPosterUrl').value = '';
+      updatePosterPreview();
+      var mb = formPoster.length / 1024 / 1024;
+      document.getElementById('mlPosterHint').textContent = mb > 0.4
+        ? '提示：此图转 base64 约 ' + mb.toFixed(2) + 'MB，会占用较多本地存储，建议优先用图片 URL。' : '';
+    };
+    reader.readAsDataURL(f);
+    input.value = '';
+  }
+  function confirmAdd() {
+    var title = document.getElementById('mlFTitle').value.trim();
+    if (!title) { alert('名称不能为空'); document.getElementById('mlFTitle').focus(); return; }
+    var y = parseInt(document.getElementById('mlFYear').value, 10);
+    var item = {
+      title: title,
+      year: isNaN(y) ? '' : y,
+      type: document.getElementById('mlFType').value,
+      status: document.getElementById('mlFStatus').value,
+      rating: 0,
+      tags: formTags.slice(),
+      note: document.getElementById('mlFNote').value.trim(),
+      poster: formPoster || document.getElementById('mlFPosterUrl').value.trim(),
+      added: true
+    };
+    var exist = findAdded(title);
+    if (exist) { added[added.indexOf(exist)] = item; } else { added.unshift(item); }
+    saveJSON(LS_ADDED, added);
+    closeModal(); resetForm(); render();
+  }
+
+  // ===================== TMDB 搜索 =====================
+  function setTmdbStatus(msg) { document.getElementById('mlTmdbStatus').textContent = msg; }
+  function tmdbSearch() {
+    var q = document.getElementById('mlTmdbQuery').value.trim();
+    if (!q) { setTmdbStatus('请输入片名关键词'); return; }
+    if (!TMDB_API_KEY || TMDB_API_KEY === 'YOUR_KEY_HERE') {
+      setTmdbStatus('未配置 API Key：请把 mark-list.ejs 顶部的 TMDB_API_KEY 换成你的 key（在 themoviedb.org 注册后到「设置→API」申请）。');
+      return;
+    }
+    setTmdbStatus('搜索中…');
+    document.getElementById('mlTmdbResults').innerHTML = '';
+    var url = 'https://api.themoviedb.org/3/search/multi?api_key=' + encodeURIComponent(TMDB_API_KEY) +
+              '&query=' + encodeURIComponent(q) + '&language=zh-CN&page=1&include_adult=false';
+    fetch(url).then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (data) {
+        var list = (data.results || []).filter(function (r) { return r.media_type === 'movie' || r.media_type === 'tv'; });
+        if (!list.length) { setTmdbStatus('无结果，换个关键词试试。'); return; }
+        setTmdbStatus('找到 ' + list.length + ' 个结果，点击任意一项填充表单');
+        renderTmdb(list);
+      })
+      .catch(function () { setTmdbStatus('搜索失败，请检查网络或 API Key。'); });
+  }
+  function renderTmdb(list) {
+    document.getElementById('mlTmdbResults').innerHTML = list.map(function (r) {
+      var year = (r.media_type === 'movie') ? (r.release_date || '').slice(0, 4) : (r.first_air_date || '').slice(0, 4);
+      var poster = r.poster_path ? TMDB_IMG + r.poster_path : '';
+      var name = r.title || r.name || '';
+      var typeLabel = r.media_type === 'movie' ? '电影' : '剧集';
+      var img = poster ? '<img src="' + escapeHtml(poster) + '" loading="lazy" alt="">'
+                       : '<div class="ml-tmdb-noimg">' + escapeHtml(name.charAt(0)) + '</div>';
+      return '<div class="ml-tmdb-item" data-mtype="' + r.media_type + '" data-year="' + year + '" data-poster="' + escapeHtml(poster) + '" data-title="' + escapeHtml(name) + '" data-overview="' + escapeHtml(r.overview || '') + '">' +
+        img +
+        '<div class="ml-tmdb-meta"><span class="ml-tmdb-name">' + escapeHtml(name) + '</span><span class="ml-tmdb-sub">' + (year || '—') + ' · ' + typeLabel + '</span></div>' +
+      '</div>';
+    }).join('');
+  }
+  function fillFromTmdb(el) {
+    document.getElementById('mlFTitle').value = el.getAttribute('data-title') || '';
+    document.getElementById('mlFYear').value = el.getAttribute('data-year') || '';
+    document.getElementById('mlFType').value = el.getAttribute('data-mtype') === 'tv' ? 'tv' : 'movie';
+    document.getElementById('mlFNote').value = el.getAttribute('data-overview') || '';
+    formPoster = el.getAttribute('data-poster') || '';
+    document.getElementById('mlFPosterUrl').value = formPoster;
+    updatePosterPreview();
+    switchModalTab('manual');
+    document.getElementById('mlFStatus').focus();
+  }
+
+  // ===================== 导入 / 导出 =====================
+  function yamlStr(v) {
+    return '"' + String(v).replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n') + '"';
+  }
+  function itemsToYAML(items) {
+    return items.map(function (it) {
+      var lines = ['- title: ' + yamlStr(it.title)];
+      if (it.year) lines.push('  year: ' + it.year);
+      if (it.type) lines.push('  type: ' + it.type);
+      if (it.status) lines.push('  status: ' + it.status);
+      if (typeof it.rating === 'number') lines.push('  rating: ' + it.rating);
+      if (it.tags && it.tags.length) lines.push('  tags: [' + it.tags.map(yamlStr).join(', ') + ']');
+      if (it.note) lines.push('  note: ' + yamlStr(it.note));
+      if (it.poster) lines.push('  poster: ' + yamlStr(it.poster));
+      return lines.join('\n');
+    }).join('\n');
+  }
+  function parseYAML(text) {
+    var items = [], cur = null;
+    function unquote(s) {
+      s = s.trim();
+      if (s.length >= 2 && s.charAt(0) === '"' && s.charAt(s.length - 1) === '"') {
+        try { return JSON.parse(s); } catch (e) { return s.slice(1, -1); }
+      }
+      return s;
+    }
+    function setKV(obj, kv) {
+      var idx = kv.indexOf(':');
+      if (idx < 0) return;
+      var k = kv.slice(0, idx).trim();
+      var v = kv.slice(idx + 1).trim();
+      if (k === 'tags') {
+        v = v.replace(/^\[/, '').replace(/\]\s*$/, '');
+        obj.tags = v ? v.split(',').map(function (s) { return unquote(s); }) : [];
+      } else if (k === 'year' || k === 'rating') {
+        var n = parseInt(v, 10); obj[k] = isNaN(n) ? v : n;
+      } else {
+        obj[k] = unquote(v);
+      }
+    }
+    text.split(/\r?\n/).forEach(function (line) {
+      var t = line.trim();
+      if (!t || t.charAt(0) === '#') return;
+      if (t.charAt(0) === '-') {
+        cur = {}; items.push(cur);
+        t = t.replace(/^-/, '').trim();
+        if (t) setKV(cur, t);
+      } else if (cur) {
+        setKV(cur, t);
+      }
+    });
+    return items.filter(function (o) { return o && o.title; });
+  }
+  function importItems(items) {
+    var n = 0;
+    items.forEach(function (it) {
+      if (!it.title) return;
+      var def = DEFAULT_MARKS.filter(function (d) { return d.title === it.title; })[0];
+      if (def) {
+        if (!overrides[it.title]) overrides[it.title] = {};
+        if (it.status) overrides[it.title].status = it.status;
+        if (typeof it.rating === 'number') overrides[it.title].rating = it.rating;
+        n++;
+      } else {
+        var a = findAdded(it.title);
+        var obj = { title: it.title, year: it.year || '', type: it.type || 'movie', status: it.status || 'want',
+                    rating: it.rating || 0, tags: it.tags || [], note: it.note || '', poster: it.poster || '', added: true };
+        if (a) { added[added.indexOf(a)] = obj; } else { added.unshift(obj); }
+        n++;
+      }
+    });
+    saveJSON(LS_OVERRIDES, overrides); saveJSON(LS_ADDED, added);
+    return n;
+  }
+  function openIOModal(mode) {
+    ioMode = mode;
+    var ta = document.getElementById('mlIOText');
+    if (mode === 'export') {
+      document.getElementById('mlIOTitle').textContent = '导出数据（YAML）';
+      document.getElementById('mlIOHint').textContent = '以下是当前清单的 YAML，可复制后粘贴到 source/_data/marks.yml，再重新 hexo generate 部署。若海报是 base64 上传的，会生成很长的字符串，建议改用图片 URL。';
+      document.getElementById('mlIOAction').textContent = '复制';
+      ta.value = itemsToYAML(getItems());
+    } else {
+      document.getElementById('mlIOTitle').textContent = '导入数据（YAML / JSON）';
+      document.getElementById('mlIOHint').textContent = '粘贴 YAML（与 marks.yml 同格式）或 JSON 数组，将合并到本地。同名条目会覆盖本地/更新默认项的状态与评分。';
+      document.getElementById('mlIOAction').textContent = '导入并合并';
+      ta.value = '';
+    }
+    document.getElementById('mlIOModal').classList.add('open');
+  }
+  function closeIOModal() { document.getElementById('mlIOModal').classList.remove('open'); }
+  function copyText(t) {
+    function fallback() {
+      var ta = document.getElementById('mlIOText'); ta.focus(); ta.select();
+      try { document.execCommand('copy'); alert('已复制到剪贴板'); } catch (e) { alert('复制失败，请手动全选复制'); }
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(function () { alert('已复制到剪贴板'); }, fallback);
+    } else fallback();
+  }
+  function ioAction() {
+    var ta = document.getElementById('mlIOText');
+    if (ioMode === 'export') { copyText(ta.value); return; }
+    var text = ta.value.trim();
+    if (!text) { alert('请先粘贴 YAML 或 JSON 数据'); return; }
+    var items = [];
+    if (text.charAt(0) === '[' || text.charAt(0) === '{') {
+      try { var j = JSON.parse(text); items = Array.isArray(j) ? j : (j && Array.isArray(j.marks) ? j.marks : []); }
+      catch (e) { alert('JSON 解析失败，请检查格式'); return; }
+    } else {
+      items = parseYAML(text);
+    }
+    if (!items.length) { alert('未能解析出任何条目，请检查格式'); return; }
+    var n = importItems(items);
+    closeIOModal();
+    alert('已导入 ' + n + ' 个条目');
+    render();
+  }
+
+  // ===================== 事件：主区域 =====================
   app.addEventListener('click', function (e) {
     var t = e.target;
     if (t.classList.contains('ml-tab')) {
@@ -448,96 +1033,121 @@
     } else if (t.classList.contains('ml-chip')) {
       app.querySelectorAll('.ml-chip').forEach(function (b) { b.classList.remove('active'); });
       t.classList.add('active'); state.type = t.getAttribute('data-type'); render();
+    } else if (t.classList.contains('ml-cloud-tag')) {
+      var tag = t.getAttribute('data-tag');
+      state.tag = (state.tag === tag) ? null : tag; render();
     } else if (t.classList.contains('ml-star')) {
-      var card = t.closest('.ml-card'); var title = card.getAttribute('data-title'); var star = +t.getAttribute('data-star');
-      if (!overrides[title]) overrides[title] = {};
-      overrides[title].rating = (overrides[title].rating === star) ? 0 : star;
-      saveJSON(LS_OVERRIDES, overrides); render();
+      var card = t.closest('.ml-card'); var title = card.getAttribute('data-title');
+      var star = +t.getAttribute('data-star');
+      var cur = getItems().filter(function (i) { return i.title === title; })[0];
+      setRating(title, (cur && cur.rating === star) ? 0 : star);
     } else if (t.classList.contains('ml-toggle')) {
-      var card2 = t.closest('.ml-card'); var title2 = card2.getAttribute('data-title');
-      var item = getItems().filter(function (i) { return i.title === title2; })[0];
-      if (!overrides[title2]) overrides[title2] = {};
-      overrides[title2].status = NEXT_STATUS[item.status];
-      saveJSON(LS_OVERRIDES, overrides); render();
+      cycleStatus(t.closest('.ml-card').getAttribute('data-title'));
     } else if (t.classList.contains('ml-remove')) {
-      var card3 = t.closest('.ml-card'); var title3 = card3.getAttribute('data-title');
-      added = added.filter(function (i) { return i.title !== title3; });
-      saveJSON(LS_ADDED, added); render();
+      removeAdded(t.closest('.ml-card').getAttribute('data-title'));
     } else if (t.id === 'mlReset') {
       overrides = {}; added = [];
       localStorage.removeItem(LS_OVERRIDES); localStorage.removeItem(LS_ADDED);
-      render();
+      state.tag = null; render();
     } else if (t.id === 'mlAddBtn') {
-      addItem();
+      openModal();
+    } else if (t.id === 'mlExport') {
+      openIOModal('export');
+    } else if (t.id === 'mlImport') {
+      openIOModal('import');
     }
   });
 
+  var searchTimer = null;
   app.addEventListener('input', function (e) {
-    if (e.target.id === 'mlSearch') { state.query = e.target.value; render(); }
+    if (e.target.id === 'mlSearch') {
+      var v = e.target.value;
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(function () { state.query = v; render(); }, 150);
+    }
   });
-
   app.addEventListener('change', function (e) {
     if (e.target.id === 'mlSort') { state.sort = e.target.value; render(); }
   });
 
-  app.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && e.target.id === 'mlAddTitle') addItem();
+  // ===================== 事件：弹窗（已挂到 body） =====================
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t.closest && t.closest('[data-close]')) { closeModal(); closeIOModal(); return; }
+    if (t.classList && t.classList.contains('ml-mtab')) { switchModalTab(t.getAttribute('data-mtab')); return; }
+    if (t.classList && t.classList.contains('ml-tagchip-rm')) { removeTag(+t.getAttribute('data-i')); return; }
+    if (t.id === 'mlConfirm') { confirmAdd(); return; }
+    if (t.id === 'mlCancel') { closeModal(); return; }
+    if (t.id === 'mlTmdbBtn') { tmdbSearch(); return; }
+    if (t.classList && t.classList.contains('ml-tmdb-item')) { fillFromTmdb(t); return; }
+    if (t.id === 'mlIOAction') { ioAction(); return; }
+    if (t.id === 'mlPosterUpload') { document.getElementById('mlPosterFile').click(); return; }
+    if (t.id === 'mlPosterClear') { formPoster = ''; document.getElementById('mlFPosterUrl').value = ''; document.getElementById('mlPosterHint').textContent = ''; updatePosterPreview(); return; }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.target && e.target.id === 'mlFNewTag') {
+      if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTag(e.target.value); }
+    } else if (e.target && e.target.id === 'mlTmdbQuery') {
+      if (e.key === 'Enter') { e.preventDefault(); tmdbSearch(); }
+    }
+  });
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'mlPosterFile') { handlePosterFile(e.target); }
+  });
+  document.addEventListener('input', function (e) {
+    if (e.target && e.target.id === 'mlFPosterUrl') { updatePosterPreview(); }
   });
 
-  function addItem() {
-    var title = document.getElementById('mlAddTitle').value.trim();
-    if (!title) { document.getElementById('mlAddTitle').focus(); return; }
-    var type = document.getElementById('mlAddType').value;
-    var status = document.getElementById('mlAddStatus').value;
-    added.unshift({ title: title, year: '', type: type, tags: [], note: '手动添加', status: status, rating: 0 });
-    saveJSON(LS_ADDED, added);
-    document.getElementById('mlAddTitle').value = '';
-    render();
-  }
+  // 把弹窗移到 body，避免被主题祖先元素的 transform/overflow 影响定位
+  document.body.appendChild(document.getElementById('mlModal'));
+  document.body.appendChild(document.getElementById('mlIOModal'));
 
+  // 先渲染空壳，再异步加载数据后重绘
   render();
+
+  fetch('/marks.json')
+    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function (data) { if (Array.isArray(data)) DEFAULT_MARKS = data; })
+    .catch(function () { DEFAULT_MARKS = []; })
+    .then(function () { render(); });
 })();
 </script>
 
+    </div>
 </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-      <div class="footer-left">
-        &copy; 2026 i-tzc
-      </div>
-        <div class="footer-right">
-          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/preccrep/hexo-theme-jelly" target="_blank">Jelly</a>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2025 - 2026 i-tzc 的影视清单
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;i-tzc
         </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/FloranceYeh/hexo-theme-particlexf">ParticleXF Theme</a>
+        </div>
+        
     </div>
-  </div>
 </footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
     </div>
+    <script src="/js/main.js"></script>
+    <script src="/js/theme.js"></script>
     
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-
-
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: false,
-		animate: true,
-		isHome: true,
-		isPost: false,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-
-<script src="/js/main.js"></script>
-
-
-
-
-  </div>
+    <script src="/js/lib/stellars.js"></script>
+    
+    
 </body>
 </html>
