@@ -286,7 +286,7 @@
       </div>
     </div>
 
-    <div class="ml-grid" id="mlGrid"></div>
+    <div class="ml-grid" id="mlGrid" style="display:flex;flex-wrap:wrap;gap:12px;width:100%;"></div>
     <div class="ml-empty" id="mlEmpty" style="display:none;">没有符合条件的作品，换个筛选试试～</div>
   </div>
 
@@ -401,13 +401,14 @@
   color: var(--ml-text);
   border-radius: 14px;
   overflow: hidden;
-  margin: 10px 0;
+  margin: 10px auto;
+  max-width: 1080px;
   box-shadow: 0 18px 50px rgba(0,0,0,.35);
 }
 .marklist-app * { box-sizing: border-box; }
 
-/* 让影视清单容器铺得更开（主题默认把 #home-posts 限制在 850px，4 列偏小） */
-#home-posts { width: 100% !important; max-width: 1200px !important; margin: auto !important; }
+/* 让影视清单容器铺得更开（主题默认把 #home-posts 限制在 850px，这里统一放宽） */
+#home-posts { width: 100% !important; max-width: 1080px !important; margin: auto !important; }
 #home-posts > .marklist-app { width: 100% !important; }
 
 /* Hero */
@@ -466,10 +467,11 @@
 .ml-cloud-tag.on { text-decoration: underline; text-shadow: 0 0 14px currentColor; }
 
 /* 海报网格（ddys 风格） */
-.ml-grid { display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 14px; }
+.ml-grid { display: flex !important; flex-wrap: wrap !important; gap: 12px; }
 .ml-card {
   position: relative !important; border-radius: 12px; overflow: hidden; background: var(--ml-card);
-  cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+  cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;
+  width: calc((100% - 42px) / 4) !important; min-width: 0; }
 .ml-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,.5); z-index: 2; }
 .ml-poster { position: relative; aspect-ratio: 2/3; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--ml-bg2); }
 .ml-poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
@@ -505,7 +507,7 @@
 .ml-toggle { background: rgba(255,255,255,.2); color: #fff; }
 .ml-toggle:hover { background: rgba(255,255,255,.34); }
 .ml-remove { background: rgba(255,92,138,.24); color: #ffb7c6; }
-.ml-empty { grid-column: 1 / -1; text-align: center; color: var(--ml-muted); padding: 40px 0; font-size: 14px; }
+.ml-empty { width: 100%; text-align: center; color: var(--ml-muted); padding: 40px 0; font-size: 14px; }
 
 /* 弹窗 */
 .ml-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
@@ -572,8 +574,7 @@ textarea.ml-field { resize: vertical; }
 }
 
 /* 响应式 */
-@media (max-width: 1100px) { .ml-grid { grid-template-columns: repeat(3, 1fr) !important; } }
-@media (max-width: 760px)  { .ml-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; } .ml-poster-char { font-size: 46px; } }
+@media (max-width: 760px)  { .ml-poster-char { font-size: 46px; } .ml-name { font-size: 13px; } .ml-meta { font-size: 11px; } }
 @media (max-width: 600px) {
   .ml-controls { margin-left: 0; width: 100%; }
   .ml-search { flex: 1; width: auto; }
@@ -602,6 +603,7 @@ textarea.ml-field { resize: vertical; }
   var STATUS = { want: '想看', watching: '在看', watched: '看过' };
   var TYPE = { movie: '电影', tv: '剧集', anime: '动漫', variety: '综艺' };
   var NEXT_STATUS = { want: 'watching', watching: 'watched', watched: 'want' };
+  var BADGE = { want: '#f5a623', watching: '#2ec5e0', watched: '#34d399' };
   var GRADS = [
     ['#f857a6', '#ff5858'], ['#4facfe', '#00f2fe'], ['#43e97b', '#38f9d7'],
     ['#fa709a', '#fee140'], ['#a18cd1', '#fbc2eb'], ['#30cfd0', '#330867'],
@@ -679,10 +681,10 @@ textarea.ml-field { resize: vertical; }
     return h;
   }
   function posterHTML(item) {
-    if (item.poster) return '<img src="' + escapeHtml(item.poster) + '" alt="" loading="lazy">';
+    if (item.poster) return '<img src="' + escapeHtml(item.poster) + '" style="width:100%;height:100%;object-fit:cover;display:block;" alt="" loading="lazy">';
     var g = GRADS[hash(item.title) % GRADS.length];
-    return '<div class="ml-poster-grad" style="background:linear-gradient(150deg,' + g[0] + ',' + g[1] + ')">' +
-           '<span class="ml-poster-char">' + escapeHtml(item.title.charAt(0)) + '</span></div>';
+    return '<div class="ml-poster-grad" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,' + g[0] + ',' + g[1] + ')">' +
+           '<span class="ml-poster-char" style="font-size:58px;font-weight:800;color:rgba(255,255,255,.92);text-shadow:0 3px 14px rgba(0,0,0,.45);">' + escapeHtml(item.title.charAt(0)) + '</span></div>';
   }
   function escapeHtml(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -758,20 +760,20 @@ textarea.ml-field { resize: vertical; }
         stars += '<span class="ml-star' + (s <= item.rating ? ' on' : '') + '" data-star="' + s + '">★</span>';
       }
       return '' +
-        '<div class="ml-card" data-title="' + escapeHtml(item.title) + '">' +
-          '<div class="ml-poster">' + posterHTML(item) + '</div>' +
-          '<div class="ml-shade"></div>' +
-          '<span class="ml-badge ' + item.status + '">' + STATUS[item.status] + '</span>' +
-          (item.note ? '<div class="ml-note">' + highlight(item.note, state.query) + '</div>' : '') +
-          '<div class="ml-info">' +
-            '<h3 class="ml-name" title="' + escapeHtml(item.title) + '">' + highlight(item.title, state.query) + '</h3>' +
-            '<div class="ml-meta">' + (item.year || '—') + ' · ' + (TYPE[item.type] || item.type) + '</div>' +
+        '<div class="ml-card" style="position:relative;width:calc((100% - 36px)/4);min-width:0;flex:0 0 auto;border-radius:12px;overflow:hidden;cursor:pointer;background:#1b2436;" data-title="' + escapeHtml(item.title) + '">' +
+          '<div class="ml-poster" style="position:relative;width:100%;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#151d2e;">' + posterHTML(item) + '</div>' +
+          '<div class="ml-shade" style="position:absolute;left:0;right:0;bottom:0;height:58%;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,.32) 48%,rgba(0,0,0,0));"></div>' +
+          '<span class="ml-badge ' + item.status + '" style="position:absolute;top:8px;right:8px;font-size:11px;padding:3px 9px;border-radius:999px;color:#fff;font-weight:600;background:' + BADGE[item.status] + ';">' + STATUS[item.status] + '</span>' +
+          (item.note ? '<div class="ml-note" style="position:absolute;top:8px;left:12px;right:12px;font-size:12px;color:#fff;line-height:1.35;text-shadow:0 1px 3px rgba(0,0,0,.6);">' + highlight(item.note, state.query) + '</div>' : '') +
+          '<div class="ml-info" style="position:absolute;left:0;right:0;bottom:46px;padding:0 12px;pointer-events:none;">' +
+            '<h3 class="ml-name" style="margin:0;font-size:15px;font-weight:700;line-height:1.3;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);" title="' + escapeHtml(item.title) + '">' + highlight(item.title, state.query) + '</h3>' +
+            '<div class="ml-meta" style="margin-top:3px;font-size:12px;color:rgba(255,255,255,.78);text-shadow:0 1px 3px rgba(0,0,0,.6);">' + (item.year || '—') + ' · ' + (TYPE[item.type] || item.type) + '</div>' +
           '</div>' +
-          '<div class="ml-actions">' +
-            '<span class="ml-stars" title="点击评分">' + stars + '</span>' +
-            '<span class="ml-ctl">' +
-              (item.added ? '<button class="ml-remove" title="移出清单">✕</button>' :
-               '<button class="ml-toggle">' + STATUS[item.status] + ' →</button>') +
+          '<div class="ml-actions" style="position:absolute;left:0;right:0;bottom:10px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">' +
+            '<span class="ml-stars" style="display:flex;gap:2px;cursor:pointer;" title="点击评分">' + stars + '</span>' +
+            '<span class="ml-ctl" style="display:flex;gap:6px;align-items:center;">' +
+              (item.added ? '<button class="ml-remove" style="border:none;background:rgba(255,92,138,.24);color:#ffb7c6;border-radius:7px;padding:5px 10px;font-size:12px;cursor:pointer;" title="移出清单">✕</button>' :
+               '<button class="ml-toggle" style="border:none;background:rgba(255,255,255,.2);color:#fff;border-radius:7px;padding:5px 10px;font-size:12px;cursor:pointer;white-space:nowrap;">' + STATUS[item.status] + ' →</button>') +
             '</span>' +
           '</div>' +
         '</div>';
