@@ -72,6 +72,7 @@
 
 <script src="/js/lib/home.js"></script>
 
+<link rel="stylesheet" href="/css/marklist.css" />
 <link rel="stylesheet" href="/css/main.css" />
 
 <style>
@@ -232,8 +233,8 @@
   - 纯静态 HTML + CSS + 原生 JS（IIFE + 事件委托），数据由 scripts/generate-marks-json.js
     在 hexo generate 时从 source/_data/marks.yml 生成 /marks.json，运行时 fetch 加载；
   - 布局参考 ddys.app：一行四列海报卡片，影视名称叠在图片左下角；
-  - 功能：海报网格 / 标签词云 / 手动添加(含海报 URL 或 base64 上传) / TMDB 搜索添加 /
-          数据导出(YAML) / 数据导入(YAML/JSON)。
+  - 样式统一放在 source/css/marklist.css（用 <link> 在 <head> 加载，避免被主题 Vue 模板丢弃），
+    本文件不再内嵌 <style>。
   ---------------------------------------------------------------
 -->
 <div class="marklist-app" id="marklistApp">
@@ -286,7 +287,7 @@
       </div>
     </div>
 
-    <div class="ml-grid" id="mlGrid" style="display:flex;flex-wrap:wrap;gap:12px;width:100%;"></div>
+    <div class="ml-grid" id="mlGrid"></div>
     <div class="ml-empty" id="mlEmpty" style="display:none;">没有符合条件的作品，换个筛选试试～</div>
   </div>
 
@@ -383,207 +384,6 @@
   </div>
 </div>
 
-<style>
-.marklist-app {
-  --ml-bg: #0e1420;
-  --ml-bg2: #151d2e;
-  --ml-card: #1b2436;
-  --ml-border: rgba(255,255,255,.08);
-  --ml-text: #e8edf6;
-  --ml-muted: #8b96ad;
-  --ml-accent: #7c5cff;
-  --ml-accent2: #ff5c8a;
-  --ml-want: #f5a623;
-  --ml-watching: #2ec5e0;
-  --ml-watched: #34d399;
-  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
-  background: linear-gradient(160deg, var(--ml-bg) 0%, var(--ml-bg2) 100%);
-  color: var(--ml-text);
-  border-radius: 14px;
-  overflow: hidden;
-  margin: 10px auto;
-  max-width: 1080px;
-  box-shadow: 0 18px 50px rgba(0,0,0,.35);
-}
-.marklist-app * { box-sizing: border-box; }
-
-/* 让影视清单容器铺得更开（主题默认把 #home-posts 限制在 850px，这里统一放宽） */
-#home-posts { width: 100% !important; max-width: 1080px !important; margin: auto !important; }
-#home-posts > .marklist-app { width: 100% !important; }
-
-/* Hero */
-.ml-hero { padding: 34px 28px 22px; text-align: center;
-  background:
-    radial-gradient(600px 220px at 15% -10%, rgba(124,92,255,.28), transparent 60%),
-    radial-gradient(600px 220px at 85% -10%, rgba(255,92,138,.22), transparent 60%); }
-.ml-title { margin: 0; font-size: 30px; letter-spacing: 2px; }
-.ml-title-en { display: block; margin-top: 8px; font-size: 12px; letter-spacing: 6px; color: var(--ml-muted); font-weight: 400; }
-.ml-slogan { margin: 12px 0 0; color: var(--ml-muted); font-size: 14px; }
-.ml-stats { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
-.ml-stat { background: rgba(255,255,255,.06); border: 1px solid var(--ml-border); border-radius: 10px; padding: 8px 16px; min-width: 86px; }
-.ml-stat b { display: block; font-size: 20px; line-height: 1.2; }
-.ml-stat span { font-size: 12px; color: var(--ml-muted); }
-.ml-stat.s-total b { color: #fff; } .ml-stat.s-want b { color: var(--ml-want); }
-.ml-stat.s-watching b { color: var(--ml-watching); } .ml-stat.s-watched b { color: var(--ml-watched); }
-.ml-stat.s-rating b { color: var(--ml-accent2); }
-
-/* Panel & toolbar */
-.ml-panel { padding: 18px 22px 26px; }
-.ml-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 14px; }
-.ml-tabs { display: flex; gap: 6px; }
-.ml-tab, .ml-chip {
-  border: 1px solid var(--ml-border); background: rgba(255,255,255,.05); color: var(--ml-muted);
-  padding: 6px 14px; border-radius: 999px; cursor: pointer; font-size: 13px; transition: all .18s ease; }
-.ml-tab:hover, .ml-chip:hover { color: var(--ml-text); border-color: rgba(255,255,255,.25); }
-.ml-tab.active { background: linear-gradient(90deg, var(--ml-accent), var(--ml-accent2)); color: #fff; border-color: transparent; }
-.ml-chip.active { background: rgba(124,92,255,.18); color: #c9b8ff; border-color: rgba(124,92,255,.5); }
-.ml-controls { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.ml-search, .ml-sort {
-  background: rgba(255,255,255,.07); border: 1px solid var(--ml-border); color: var(--ml-text);
-  border-radius: 8px; padding: 7px 12px; font-size: 13px; outline: none; }
-.ml-search { width: 190px; }
-.ml-search::placeholder { color: var(--ml-muted); }
-.ml-search:focus, .ml-sort:focus { border-color: var(--ml-accent); }
-.ml-sort option { background: var(--ml-bg2); color: var(--ml-text); }
-.ml-result { font-size: 12px; color: var(--ml-muted); white-space: nowrap; }
-.ml-hl { background: rgba(255,207,77,.42); color: #fff; border-radius: 2px; padding: 0 1px; }
-.ml-mini {
-  background: rgba(255,255,255,.05); border: 1px solid var(--ml-border); color: var(--ml-muted);
-  border-radius: 8px; padding: 7px 12px; cursor: pointer; font-size: 13px; transition: all .18s ease; }
-.ml-mini:hover { color: var(--ml-text); border-color: rgba(255,255,255,.3); }
-.ml-add-btn {
-  background: linear-gradient(90deg, var(--ml-accent), var(--ml-accent2)); color: #fff; border: none;
-  border-radius: 8px; padding: 7px 18px; cursor: pointer; font-size: 13px; font-weight: 600; transition: transform .12s ease; }
-.ml-add-btn:hover { transform: translateY(-1px); }
-
-/* 标签词云 */
-.ml-cloud-wrap { margin-bottom: 16px; padding: 14px 16px; background: rgba(255,255,255,.04); border: 1px solid var(--ml-border); border-radius: 12px; }
-.ml-cloud-head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-.ml-cloud-title { font-size: 14px; font-weight: 600; }
-.ml-cloud-count { font-size: 12px; color: var(--ml-muted); }
-.ml-cloud { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
-.ml-cloud-tag { cursor: pointer; line-height: 1.4; transition: filter .15s ease; }
-.ml-cloud-tag:hover { text-decoration: underline; filter: brightness(1.25); }
-.ml-cloud-tag.on { text-decoration: underline; text-shadow: 0 0 14px currentColor; }
-
-/* 海报网格（ddys 风格） */
-.ml-grid { display: flex !important; flex-wrap: wrap !important; gap: 12px; }
-.ml-card {
-  position: relative !important; border-radius: 12px; overflow: hidden; background: var(--ml-card);
-  cursor: pointer; transition: transform .2s ease, box-shadow .2s ease;
-  width: calc((100% - 42px) / 4) !important; min-width: 0; }
-.ml-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(0,0,0,.5); z-index: 2; }
-.ml-poster { position: relative; aspect-ratio: 2/3; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--ml-bg2); }
-.ml-poster img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease; }
-.ml-card:hover .ml-poster img { transform: scale(1.06); }
-.ml-poster-grad { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
-.ml-poster-char { font-size: 58px; font-weight: 800; color: rgba(255,255,255,.92); text-shadow: 0 3px 14px rgba(0,0,0,.45); }
-.ml-shade { position: absolute !important; left: 0; right: 0; bottom: 0; height: 58%;
-  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.32) 48%, rgba(0,0,0,0) 100%); pointer-events: none; }
-.ml-badge { position: absolute; top: 8px; right: 8px; font-size: 11px; padding: 3px 9px; border-radius: 999px;
-  color: #fff; font-weight: 600; letter-spacing: 1px; box-shadow: 0 2px 8px rgba(0,0,0,.35); }
-.ml-badge.want { background: var(--ml-want); }
-.ml-badge.watching { background: var(--ml-watching); }
-.ml-badge.watched { background: var(--ml-watched); }
-.ml-info { position: absolute !important; left: 0; right: 0; bottom: 46px; padding: 0 12px; pointer-events: none; }
-.ml-name { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.3; color: #fff;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  text-shadow: 0 1px 4px rgba(0,0,0,.6); }
-.ml-meta { margin-top: 3px; font-size: 12px; color: rgba(255,255,255,.78); text-shadow: 0 1px 3px rgba(0,0,0,.6); }
-.ml-note { position: absolute; top: 8px; left: 12px; right: 12px; font-size: 12px; color: #fff; line-height: 1.35;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-  text-shadow: 0 1px 3px rgba(0,0,0,.6); opacity: 0; transform: translateY(-4px); transition: all .18s ease; pointer-events: none; }
-.ml-actions { position: absolute !important; left: 0; right: 0; bottom: 10px; padding: 0 12px;
-  display: flex; align-items: center; justify-content: space-between; gap: 8px;
-  opacity: 0; transform: translateY(6px); transition: all .18s ease; pointer-events: none; }
-.ml-card:hover .ml-note, .ml-card:focus-within .ml-note,
-.ml-card:hover .ml-actions, .ml-card:focus-within .ml-actions { opacity: 1; transform: none; pointer-events: auto; }
-.ml-stars { display: flex; gap: 2px; cursor: pointer; user-select: none; }
-.ml-star { font-size: 16px; color: rgba(255,255,255,.4); transition: color .12s ease, transform .12s ease; }
-.ml-star.on { color: #ffcf4d; }
-.ml-star:hover { transform: scale(1.25); }
-.ml-ctl { display: flex; gap: 6px; align-items: center; }
-.ml-toggle, .ml-remove { border: none; border-radius: 7px; padding: 5px 10px; font-size: 12px; cursor: pointer; white-space: nowrap; }
-.ml-toggle { background: rgba(255,255,255,.2); color: #fff; }
-.ml-toggle:hover { background: rgba(255,255,255,.34); }
-.ml-remove { background: rgba(255,92,138,.24); color: #ffb7c6; }
-.ml-empty { width: 100%; text-align: center; color: var(--ml-muted); padding: 40px 0; font-size: 14px; }
-
-/* 弹窗 */
-.ml-modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 9999; padding: 16px; }
-.ml-modal.open { display: flex; }
-.ml-modal-mask { position: absolute; inset: 0; background: rgba(4,6,14,.72); }
-.ml-modal-box { position: relative; width: 100%; max-width: 560px; max-height: 88vh; overflow: auto;
-  background: linear-gradient(160deg, var(--ml-bg2), var(--ml-bg)); border: 1px solid var(--ml-border);
-  border-radius: 14px; box-shadow: 0 24px 60px rgba(0,0,0,.6); }
-.ml-modal-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 0; }
-.ml-modal-tabs { display: flex; gap: 6px; }
-.ml-mtab { border: 1px solid var(--ml-border); background: transparent; color: var(--ml-muted); padding: 6px 14px; border-radius: 999px; font-size: 13px; cursor: pointer; transition: all .18s ease; }
-.ml-mtab.active { background: linear-gradient(90deg, var(--ml-accent), var(--ml-accent2)); color: #fff; border-color: transparent; }
-.ml-modal-close { background: none; border: none; color: var(--ml-muted); font-size: 18px; cursor: pointer; padding: 4px 8px; }
-.ml-modal-close:hover { color: var(--ml-text); }
-.ml-modal-body { padding: 14px 16px; }
-.ml-modal-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 0 16px 16px; }
-.ml-io-title { font-size: 14px; font-weight: 600; }
-.ml-pane label { display: block; font-size: 12px; color: var(--ml-muted); margin: 12px 0 6px; }
-.ml-req { color: var(--ml-accent2); }
-.ml-field { width: 100%; background: rgba(255,255,255,.07); border: 1px solid var(--ml-border); color: var(--ml-text);
-  border-radius: 8px; padding: 9px 12px; font-size: 13px; outline: none; }
-.ml-field:focus { border-color: var(--ml-accent); }
-textarea.ml-field { resize: vertical; }
-.ml-field-row { display: flex; gap: 10px; }
-.ml-field-row > div { flex: 1; }
-.ml-tag-input { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; background: rgba(255,255,255,.07);
-  border: 1px solid var(--ml-border); border-radius: 8px; padding: 8px 10px; cursor: text; }
-.ml-tag-chip { display: inline-flex; align-items: center; gap: 5px; background: rgba(124,92,255,.2); color: #d5c8ff;
-  border-radius: 999px; padding: 3px 10px; font-size: 12px; }
-.ml-tag-chip i { font-style: normal; cursor: pointer; opacity: .7; }
-.ml-tag-chip i:hover { opacity: 1; }
-.ml-tag-input input { flex: 1; min-width: 100px; background: none; border: none; color: var(--ml-text); outline: none; font-size: 13px; padding: 2px 4px; }
-.ml-poster-box { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.ml-poster-box .ml-field { flex: 1; min-width: 160px; }
-.ml-poster-preview { width: 72px; height: 108px; border-radius: 8px; overflow: hidden; background: var(--ml-bg2);
-  border: 1px solid var(--ml-border); margin-top: 10px; }
-.ml-poster-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ml-poster-preview .ph { display: flex; align-items: center; justify-content: center; height: 100%; color: var(--ml-muted); font-size: 22px; }
-.ml-poster-hint { width: 100%; font-size: 11px; color: #ffb37c; margin-top: 6px; line-height: 1.5; }
-
-/* TMDB 搜索结果 */
-.ml-tmdb-search { display: flex; gap: 8px; }
-.ml-tmdb-search .ml-field { flex: 1; }
-.ml-tmdb-status { font-size: 12px; color: var(--ml-muted); margin: 12px 0; min-height: 16px; line-height: 1.5; }
-.ml-tmdb-results { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
-.ml-tmdb-item { cursor: pointer; border-radius: 8px; overflow: hidden; border: 1px solid var(--ml-border); background: var(--ml-card); transition: transform .15s ease, border-color .15s ease; }
-.ml-tmdb-item:hover { border-color: var(--ml-accent); transform: translateY(-2px); }
-.ml-tmdb-item img { width: 100%; aspect-ratio: 2/3; object-fit: cover; display: block; }
-.ml-tmdb-noimg { width: 100%; aspect-ratio: 2/3; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; color: rgba(255,255,255,.85); background: linear-gradient(150deg, #7c5cff, #ff5c8a); }
-.ml-tmdb-meta { padding: 6px 8px 8px; }
-.ml-tmdb-name { display: block; font-size: 12px; line-height: 1.3; color: var(--ml-text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ml-tmdb-sub { font-size: 11px; color: var(--ml-muted); }
-
-/* IO 面板 */
-.ml-io-hint { font-size: 12px; color: var(--ml-muted); margin-bottom: 10px; line-height: 1.6; }
-.ml-io-text { width: 100%; min-height: 260px; background: rgba(255,255,255,.05); border: 1px solid var(--ml-border);
-  color: var(--ml-text); border-radius: 8px; padding: 10px; font-size: 12px; font-family: ui-monospace, Consolas, monospace;
-  outline: none; resize: vertical; }
-
-/* 触屏设备无 hover，操作条常显 */
-@media (hover: none) {
-  .ml-actions { opacity: 1; transform: none; pointer-events: auto; }
-  .ml-note { opacity: 1; transform: none; }
-}
-
-/* 响应式 */
-@media (max-width: 760px)  { .ml-poster-char { font-size: 46px; } .ml-name { font-size: 13px; } .ml-meta { font-size: 11px; } }
-@media (max-width: 600px) {
-  .ml-controls { margin-left: 0; width: 100%; }
-  .ml-search { flex: 1; width: auto; }
-  .ml-title { font-size: 24px; }
-  .ml-field-row { flex-direction: column; }
-  .ml-tmdb-search { flex-direction: column; }
-}
-</style>
-
 <script>
 (function () {
   'use strict';
@@ -603,7 +403,6 @@ textarea.ml-field { resize: vertical; }
   var STATUS = { want: '想看', watching: '在看', watched: '看过' };
   var TYPE = { movie: '电影', tv: '剧集', anime: '动漫', variety: '综艺' };
   var NEXT_STATUS = { want: 'watching', watching: 'watched', watched: 'want' };
-  var BADGE = { want: '#f5a623', watching: '#2ec5e0', watched: '#34d399' };
   var GRADS = [
     ['#f857a6', '#ff5858'], ['#4facfe', '#00f2fe'], ['#43e97b', '#38f9d7'],
     ['#fa709a', '#fee140'], ['#a18cd1', '#fbc2eb'], ['#30cfd0', '#330867'],
@@ -681,10 +480,10 @@ textarea.ml-field { resize: vertical; }
     return h;
   }
   function posterHTML(item) {
-    if (item.poster) return '<img src="' + escapeHtml(item.poster) + '" style="width:100%;height:100%;object-fit:cover;display:block;" alt="" loading="lazy">';
+    if (item.poster) return '<img src="' + escapeHtml(item.poster) + '" alt="" loading="lazy">';
     var g = GRADS[hash(item.title) % GRADS.length];
-    return '<div class="ml-poster-grad" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,' + g[0] + ',' + g[1] + ')">' +
-           '<span class="ml-poster-char" style="font-size:58px;font-weight:800;color:rgba(255,255,255,.92);text-shadow:0 3px 14px rgba(0,0,0,.45);">' + escapeHtml(item.title.charAt(0)) + '</span></div>';
+    return '<div class="ml-poster-grad" style="background:linear-gradient(150deg,' + g[0] + ',' + g[1] + ')">' +
+           '<span class="ml-poster-char">' + escapeHtml(item.title.charAt(0)) + '</span></div>';
   }
   function escapeHtml(s) {
     return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -760,20 +559,20 @@ textarea.ml-field { resize: vertical; }
         stars += '<span class="ml-star' + (s <= item.rating ? ' on' : '') + '" data-star="' + s + '">★</span>';
       }
       return '' +
-        '<div class="ml-card" style="position:relative;width:calc((100% - 36px)/4);min-width:0;flex:0 0 auto;border-radius:12px;overflow:hidden;cursor:pointer;background:#1b2436;" data-title="' + escapeHtml(item.title) + '">' +
-          '<div class="ml-poster" style="position:relative;width:100%;aspect-ratio:2/3;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#151d2e;">' + posterHTML(item) + '</div>' +
-          '<div class="ml-shade" style="position:absolute;left:0;right:0;bottom:0;height:58%;background:linear-gradient(to top,rgba(0,0,0,.85),rgba(0,0,0,.32) 48%,rgba(0,0,0,0));"></div>' +
-          '<span class="ml-badge ' + item.status + '" style="position:absolute;top:8px;right:8px;font-size:11px;padding:3px 9px;border-radius:999px;color:#fff;font-weight:600;background:' + BADGE[item.status] + ';">' + STATUS[item.status] + '</span>' +
-          (item.note ? '<div class="ml-note" style="position:absolute;top:8px;left:12px;right:12px;font-size:12px;color:#fff;line-height:1.35;text-shadow:0 1px 3px rgba(0,0,0,.6);">' + highlight(item.note, state.query) + '</div>' : '') +
-          '<div class="ml-info" style="position:absolute;left:0;right:0;bottom:46px;padding:0 12px;pointer-events:none;">' +
-            '<h3 class="ml-name" style="margin:0;font-size:15px;font-weight:700;line-height:1.3;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6);" title="' + escapeHtml(item.title) + '">' + highlight(item.title, state.query) + '</h3>' +
-            '<div class="ml-meta" style="margin-top:3px;font-size:12px;color:rgba(255,255,255,.78);text-shadow:0 1px 3px rgba(0,0,0,.6);">' + (item.year || '—') + ' · ' + (TYPE[item.type] || item.type) + '</div>' +
+        '<div class="ml-card" data-title="' + escapeHtml(item.title) + '">' +
+          '<div class="ml-poster">' + posterHTML(item) + '</div>' +
+          '<div class="ml-shade"></div>' +
+          '<span class="ml-badge ' + item.status + '">' + STATUS[item.status] + '</span>' +
+          (item.note ? '<div class="ml-note">' + highlight(item.note, state.query) + '</div>' : '') +
+          '<div class="ml-info">' +
+            '<h3 class="ml-name" title="' + escapeHtml(item.title) + '">' + highlight(item.title, state.query) + '</h3>' +
+            '<div class="ml-meta">' + (item.year || '—') + ' · ' + (TYPE[item.type] || item.type) + '</div>' +
           '</div>' +
-          '<div class="ml-actions" style="position:absolute;left:0;right:0;bottom:10px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;">' +
-            '<span class="ml-stars" style="display:flex;gap:2px;cursor:pointer;" title="点击评分">' + stars + '</span>' +
-            '<span class="ml-ctl" style="display:flex;gap:6px;align-items:center;">' +
-              (item.added ? '<button class="ml-remove" style="border:none;background:rgba(255,92,138,.24);color:#ffb7c6;border-radius:7px;padding:5px 10px;font-size:12px;cursor:pointer;" title="移出清单">✕</button>' :
-               '<button class="ml-toggle" style="border:none;background:rgba(255,255,255,.2);color:#fff;border-radius:7px;padding:5px 10px;font-size:12px;cursor:pointer;white-space:nowrap;">' + STATUS[item.status] + ' →</button>') +
+          '<div class="ml-actions">' +
+            '<span class="ml-stars" title="点击评分">' + stars + '</span>' +
+            '<span class="ml-ctl">' +
+              (item.added ? '<button class="ml-remove" title="移出清单">✕</button>' :
+               '<button class="ml-toggle">' + STATUS[item.status] + ' →</button>') +
             '</span>' +
           '</div>' +
         '</div>';
